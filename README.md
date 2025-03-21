@@ -29,4 +29,7 @@ This project is a simple website that displays information about different dog b
    ```sh
    json-server --watch db.json
    ```
-3. Open `index.html` in a browser or use a live server extension in VS Code.  
+3. Open `index.html` in a browser or use a live server extension in VS Code.
+
+## Live Demo
+https://dog-details-using-api.vercel.app/
