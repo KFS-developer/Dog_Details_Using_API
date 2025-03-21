@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dogs API</title>
+    <style>
+        #container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .info {
+            padding: 20px;
+            text-align: center;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+            font-size: 18px;
+        }
+
+        .info p {
+            text-align: justify;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 style="text-align: center; font-size: 50px">Dogs Details</h1>
+    <div id="container"></div>
+
+    <script>
+        function Get_Data_From_Server() {
+            fetch("http://localhost:3000/product")
+                .then((res) => {
+                    return res.json();
+                })
+                .then((data) => {
+                    console.log(data);
+                    Cardlist(data);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
+        Get_Data_From_Server();
+
+        function CreateDiv(name, breeds, size, lifespan, origin, temperament, colors, description, image) {
+            let div = `
+             <div class="info">
+                <img src=${image} width ="250">
+                <h2>${name}</h2>
+                <p><strong>Breed:</strong> ${breeds}</p>
+                <p><strong>Size:</strong> ${size}</p>
+                <p><strong>Lifespan:</strong> ${lifespan}</p>
+                <p><strong>Origin:</strong> ${origin}</p>
+                <p><strong>Temperament:</strong> ${temperament}</p>
+                <p><strong>Colors:</strong> ${colors}</p>
+                <p><strong>Description:</strong> ${description}</p>
+            </div>
+            `;
+            return div;
+        }
+
+        function Cardlist(data) {
+            const cardData = data.map((el) => CreateDiv(el.name, el.breed_group, el.size, el.lifespan, el.origin, el.temperament, el.colors, el.description, el.image));
+            document.querySelector("#container").innerHTML = cardData.join("");
+        }
+    </script>
+</body>
+</html>
